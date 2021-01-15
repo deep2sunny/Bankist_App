@@ -32,7 +32,34 @@ document.addEventListener('keydown', function (e) {
   }
 });
 
+/////////////////////////////////////////////////////////////////////
 //Functionality: Smooth Scrolling
 btnScrollTo.addEventListener('click', function(e) {
   section1.scrollIntoView({behavior: 'smooth'});
+});
+
+
+/////////////////////////////////////////////////////////////////////
+//Functionality: Page Navigation
+//Insufficient: Performance-wise, attach event handler to multiple elements
+// document.querySelectorAll('.nav__link').forEach(function(el) {
+//   el.addEventListener('click', function(e) {
+//     e.preventDefault();
+//     const id = this.getAttribute('href');
+//     console.log(id);
+//     document.querySelector(id).scrollIntoView({behavior:'smooth'});
+//   });
+// });
+
+//Event Delegation
+//1. Add Event listener to common parent element
+//2. Determine what element originated the event.
+document.querySelector('.nav__links').addEventListener('click', function(e) {
+  //console.log(e.target);
+  e.preventDefault();
+  //Matching Strategy
+  if(e.target.classList.contains('nav__link')) {
+    const id = e.target.getAttribute('href');
+    document.querySelector(id).scrollIntoView({behavior:'smooth'});
+  }
 });
