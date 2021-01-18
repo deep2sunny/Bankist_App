@@ -63,3 +63,32 @@ document.querySelector('.nav__links').addEventListener('click', function(e) {
     document.querySelector(id).scrollIntoView({behavior:'smooth'});
   }
 });
+
+
+//Building Tabbed Component
+const tabs = document.querySelectorAll('.operations__tab');
+const tabContainer = document.querySelector('.operations__tab-container');
+const tabsContent = document. querySelectorAll('.operations__content');
+
+//bad practice
+//tabs.forEach(t=>t.addEventListener('click', () => console.log('TAB')));
+
+tabContainer.addEventListener('click', function(e) {
+  const clicked = e.target.closest('.operations__tab'); //returns element itself
+  //console.log(clicked);
+
+  //Guard Clause
+  // if nothing clicked, immediately finish the function: null
+  if(!clicked) return;
+
+  //Remove active classes
+  tabs.forEach( t => t.classList.remove('operations__tab--active'));
+  tabsContent.forEach (c => c.classList.remove('operations__content--active'));
+
+  //Active Tab
+  clicked.classList.add('operations__tab--active');
+
+  //Active content area
+  //console.log(clicked.dataset.tab );
+  document.querySelector(`.operations__content--${clicked.dataset.tab}`).classList.add('operations__content--active');
+});
